@@ -12,10 +12,16 @@ class MovieCreateView(CreateView):
   model = Movie
   template_name = "movie/movie_form.html"
   fields = ['title', 'description']
-  success_url = reverse_lazy('home')
+  success_url = reverse_lazy('movie_list')
 
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super(MovieCreateView, self).form_valid(form)
+
+from django.views.generic import ListView
+
+class MovieListView(ListView):
+  model = Movie
+  template_name = "movie/movie_list.html"
 
 # Create your views here.
