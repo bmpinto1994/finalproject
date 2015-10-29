@@ -24,4 +24,10 @@ class MovieListView(ListView):
   model = Movie
   template_name = "movie/movie_list.html"
 
+from django.views.generic import DetailView
+
+class MovieDetailView(DetailView):
+  model = Movie
+  template_name = 'movie/movie_detail.html'
+
 # Create your views here.
