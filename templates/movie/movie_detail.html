@@ -7,5 +7,14 @@
 <p><a href="{% url 'movie_update' pk=movie.id %}">Edit Movie</a></p>
 <p><a href="{% url 'movie_delete' pk=movie.id %}">Delete Movie</a></p>
 {% endif %}
+{% if reviews.count > 0 %}
+<h3>{{ reviews.count }} Review{{ reviews.count|pluralize }}:</h3>
+{% endif %}
+{% for review in reviews %}
+<div class="panel">
+  <p>{{ review.text }}</p>
+  <p>Written by {{ review.user.username }} on {{ review.created_at }}</p>
+</div>
+{% endfor %}
 <p><a href="{% url 'review_create' pk=movie.id %}">Write review</a></p>
 {% endblock %}
