@@ -37,4 +37,11 @@ class MovieUpdateView(UpdateView):
   template_name = 'movie/movie_form.html'
   fields = ['title', 'description']
 
+from django.views.generic import DeleteView
+
+class MovieDeleteView(DeleteView):
+  model = Movie
+  template_name = 'movie/movie_confirm_delete.html'
+  success_url = reverse_lazy('movie_list')
+
 # Create your views here.
