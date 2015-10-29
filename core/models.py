@@ -13,4 +13,13 @@ class Movie(models.Model):
 
   def get_absolute_url(self):
     return reverse("movie_detail", args=[self.id])
+
+class Review(models.Model):
+  movie = models.ForeignKey(Movie)
+  user = models.ForeignKey(User)
+  created_at = models.DateTimeField(auto_now_add=True)
+  text = models.TextField()
+
+  def __unicode__(self):
+    return self.text
 # Create your models here.

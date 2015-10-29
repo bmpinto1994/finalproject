@@ -7,4 +7,5 @@
 <p><a href="{% url 'movie_update' pk=movie.id %}">Edit Movie</a></p>
 <p><a href="{% url 'movie_delete' pk=movie.id %}">Delete Movie</a></p>
 {% endif %}
+<p><a href="{% url 'review_create' pk=movie.id %}">Write review</a></p>
 {% endblock %}
