@@ -3,4 +3,7 @@
 <h1>{{ movie.title }}</h1>
 <p>{{ movie.description }}</p>
 <p>Added by {{ movie.user.username }} on {{ movie.created_at }}</p>
+{% if movie.user == user %}
+<p><a href="{% url 'movie_update' pk=movie.id %}">Edit Movie</a></p>
+{% endif %}
 {% endblock %}

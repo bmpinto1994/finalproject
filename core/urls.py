@@ -8,4 +8,5 @@ urlpatterns = patterns('',
                        url(r'^movie/create/$', MovieCreateView.as_view(), name='movie_create'),
                        url(r'movie/$', MovieListView.as_view(), name='movie_list'),
                        url(r'^movie/(?P<pk>\d+)/$', MovieDetailView.as_view(), name='movie_detail'),
+                       url(r'^movie/update/(?P<pk>\d+)/$', MovieUpdateView.as_view(), name='movie_update'),
                       )

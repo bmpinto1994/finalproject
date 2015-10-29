@@ -30,4 +30,11 @@ class MovieDetailView(DetailView):
   model = Movie
   template_name = 'movie/movie_detail.html'
 
+from django.views.generic import UpdateView
+
+class MovieUpdateView(UpdateView):
+  model = Movie
+  template_name = 'movie/movie_form.html'
+  fields = ['title', 'description']
+
 # Create your views here.
