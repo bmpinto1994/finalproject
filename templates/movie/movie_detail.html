@@ -15,6 +15,7 @@
   <p>{{ review.text }}</p>
   {% if review.user == user %}
   <p><a href="{% url 'review_update' movie_pk=movie.id review_pk=review.id %}">Edit review</a></p>
+  <p><a href="{% url 'review_delete' movie_pk=movie.id review_pk=review.id %}">Delete review</a></p>
   {% endif %}
   <p>Written by {{ review.user.username }} on {{ review.created_at }}</p>
 </div>
