@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
@@ -44,12 +45,24 @@ class MovieUpdateView(UpdateView):
   template_name = 'movie/movie_form.html'
   fields = ['title', 'description']
 
+  def get_object(self, *args, **kwargs):
+    object = super(MovieUpdateView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
+
 from django.views.generic import DeleteView
 
 class MovieDeleteView(DeleteView):
   model = Movie
   template_name = 'movie/movie_confirm_delete.html'
   success_url = reverse_lazy('movie_list')
+
+  def get_object(self, *args, **kwargs):
+    object = super(MovieDeleteView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
 
 class ReviewCreateView(CreateView):
   model = Review
@@ -73,6 +86,12 @@ class ReviewUpdateView(UpdateView):
   def get_success_url(self):
     return self.object.movie.get_absolute_url()
 
+  def get_object(self, *args, **kwargs):
+    object = super(ReviewUpdateView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
+
 class ReviewDeleteView(DeleteView):
   model = Review
   pk_url_kwarg = "review_pk"
@@ -80,5 +99,11 @@ class ReviewDeleteView(DeleteView):
 
   def get_success_url(self):
     return self.object.movie.get_absolute_url()
+
+  def get_object(self, *args, **kwargs):
+    object = super(ReviewDeleteView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
 
 # Create your views here.
