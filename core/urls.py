@@ -11,4 +11,5 @@ urlpatterns = patterns('',
                        url(r'^movie/update/(?P<pk>\d+)/$', MovieUpdateView.as_view(), name='movie_update'),
                        url(r'^movie/delete/(?P<pk>\d+)/$', MovieDeleteView.as_view(), name='movie_delete'),
                        url(r'^movie/(?P<pk>\d+)/review/create/$', ReviewCreateView.as_view(), name='review_create'),
+                       url(r'^movie/(?P<movie_pk>\d+)/review/update/(?P<review_pk>\d+)/$', ReviewUpdateView.as_view(), name='review_update'),
                       )
