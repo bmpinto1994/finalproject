@@ -111,4 +111,21 @@ class ReviewDeleteView(DeleteView):
       raise PermissionDenied()
     return object
 
+from django.shortcuts import redirect
+from django.views.generic import FormView
+from .forms import *
+
+class VoteFormView(FormView):
+  form_class = VoteForm
+
+  def form_valid(self, form):
+    user = self.request.user
+    movie = Movie.objects.get(pk=form.data["movie"])
+    prev_votes = Vote.objects.filter(user=user, movie=movie)
+    has_voted = (prev_votes.count()>0)
+    if not has_voted:
+      Vote.objects.create(user=user, movie=movie)
+    else:
+      prev_votes[0].delete()
+    return redirect('movie_list')
 # Create your views here.

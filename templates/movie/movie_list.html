@@ -4,6 +4,13 @@
 <div class="panel">
   <h3><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a></h3>
   <p>Added by {{ movie.user.username }} on {{ movie.created_at }}</p>
+  <p>{{ movie.vote_set.all.count }} Vote{{ movie.vote_set.all.count|pluralize }}</p>
+  <form method="post" action="{% url 'vote' %}">
+    {% csrf_token %}
+    <input type="hidden" name="movie" value="{{ movie.id }}" />
+    <input type="hidden" name="user" value="{{ user.id }}" />
+    <button>+</button>
+  </form>
 </div>
 {% endfor %}
 {% endblock %}
