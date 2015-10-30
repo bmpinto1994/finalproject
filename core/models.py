@@ -25,7 +25,8 @@ class Review(models.Model):
 
 class Vote(models.Model):
   user = models.ForeignKey(User)
-  movie = models.ForeignKey(Movie)
+  movie = models.ForeignKey(Movie, blank=True, null=True)
+  review = models.ForeignKey(Review, blank=True, null=True)
 
   def __unicode__(self):
     return "% upvoted" % (self.user.username)

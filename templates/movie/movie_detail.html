@@ -18,6 +18,14 @@
   <p><a href="{% url 'review_delete' movie_pk=movie.id review_pk=review.id %}">Delete review</a></p>
   {% endif %}
   <p>Written by {{ review.user.username }} on {{ review.created_at }}</p>
+  <p>{{ review.vote_set.all.count }} Vote{{ review.vote_set.all.count|pluralize }}</p>
+  <form method="post" action="{% url 'vote' %}">
+    {% csrf_token %}
+    <input type="hidden" name="review" value="{{ review.id }}" />
+    <input type="hidden" name="movie" value="{{ movie.id }}" />
+    <input type="hidden" name="user" value="{{ user.id }}" />
+    <button>+</button>
+  </form>
 </div>
 {% endfor %}
 {% if not user_reviews %}
