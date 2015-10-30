@@ -20,5 +20,7 @@
   <p>Written by {{ review.user.username }} on {{ review.created_at }}</p>
 </div>
 {% endfor %}
+{% if not user_reviews %}
 <p><a href="{% url 'review_create' pk=movie.id %}">Write review</a></p>
+{% endif %}
 {% endblock %}

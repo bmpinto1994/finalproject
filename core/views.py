@@ -36,6 +36,8 @@ class MovieDetailView(DetailView):
     movie = Movie.objects.get(id=self.kwargs['pk'])
     reviews = Review.objects.filter(movie=movie)
     context['reviews'] = reviews
+    user_reviews = Review.objects.filter(movie=movie, user=self.request.user)
+    context['user_reviews'] = user_reviews
     return context
 
 from django.views.generic import UpdateView
@@ -73,6 +75,9 @@ class ReviewCreateView(CreateView):
     return self.object.movie.get_absolute_url()
 
   def form_valid(self, form):
+    movie = Movie.objects.get(id=self.kwargs['pk'])
+    if Review.objects.filter(movie=movie, user=self.request.user).exists():
+      raise PermissionDenied()
     form.instance.user = self.request.user
     form.instance.movie = Movie.objects.get(id=self.kwargs['pk'])
     return super(ReviewCreateView, self).form_valid(form)
