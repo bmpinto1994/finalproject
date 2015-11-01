@@ -26,6 +26,12 @@ class MovieListView(ListView):
   template_name = "movie/movie_list.html"
   paginate_by = 5
 
+  def get_context_data(self, **kwargs):
+    context = super(MovieListView, self).get_context_data(**kwargs)
+    user_votes = Movie.objects.filter(vote__user=self.request.user)
+    context['user_votes'] = user_votes
+    return context
+
 from django.views.generic import DetailView
 
 class MovieDetailView(DetailView):
@@ -37,6 +43,8 @@ class MovieDetailView(DetailView):
     movie = Movie.objects.get(id=self.kwargs['pk'])
     reviews = Review.objects.filter(movie=movie)
     context['reviews'] = reviews
+    user_votes = Review.objects.filter(vote__user=self.request.user)
+    context['user_votes'] = user_votes
     user_reviews = Review.objects.filter(movie=movie, user=self.request.user)
     context['user_reviews'] = user_reviews
     return context

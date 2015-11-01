@@ -4,13 +4,22 @@
 <div class="panel">
   <h3><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a></h3>
   <p>Added {% if movie.visability == 0 %} by <a href="{% url 'user_detail' slug=movie.user.username %}">{{ movie.user.username }}</a> on {{ movie.created_at }}</p>
-  <p>{{ movie.vote_set.all.count }} Vote{{ movie.vote_set.all.count|pluralize }}</p>
   <form method="post" action="{% url 'vote' %}">
+    <span class="badge">{{ movie.reivew_set.all.count }} Review{{  movie.review_set.all.count|pluralize }}</span>
+    <span class="badge">{{ movie.vote_set.all.count }} Vote{{ movie.vote_set.all.count|pluralize }}</span>
     {% csrf_token %}
     <input type="hidden" name="movie" value="{{ movie.id }}" />
     <input type="hidden" name="user" value="{{ user.id }}" />
-    <button>+</button>
-  </form>
+        {% if question in user_votes %}
+        <button class="btn btn-link">
+          <span class="glyphicon glyphicon-thumbs-down"></span>
+        </button>
+        {% else %}
+        <button class="btn btn-link">
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+        </button>
+        {% endif %}
+    </form>
 </div>
 {% empty %}
 <p>No results found.</p>
