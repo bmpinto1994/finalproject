@@ -1,4 +1,8 @@
 from django.core.urlresolvers import reverse
+VISABILITY_CHOICES = (
+(0, 'Public'),
+(1, 'Anonymous'),
+)
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -7,6 +11,7 @@ class Movie(models.Model):
   description = models.TextField(null=True, blank=True)
   created_at = models.DateTimeField(auto_now_add=True)
   user = models.ForeignKey(User)
+  visability = models.IntegerField(choices=VISABILITY_CHOICES, default=0)
 
   def __unicode__(self):
     return self.title
@@ -19,6 +24,7 @@ class Review(models.Model):
   user = models.ForeignKey(User)
   created_at = models.DateTimeField(auto_now_add=True)
   text = models.TextField()
+  visability = models.IntegerField(choices=VISABILITY_CHOICES, default=0)
 
   def __unicode__(self):
     return self.text

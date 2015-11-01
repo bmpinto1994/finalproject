@@ -12,7 +12,7 @@ from .models import *
 class MovieCreateView(CreateView):
   model = Movie
   template_name = "movie/movie_form.html"
-  fields = ['title', 'description']
+  fields = ['title', 'description', 'visability']
   success_url = reverse_lazy('movie_list')
 
   def form_valid(self, form):
@@ -70,7 +70,7 @@ class MovieDeleteView(DeleteView):
 class ReviewCreateView(CreateView):
   model = Review
   template_name = "review/review_form.html"
-  fields = ['text']
+  fields = ['text', 'visability']
 
   def get_success_url(self):
     return self.object.movie.get_absolute_url()
@@ -149,7 +149,7 @@ class UserDetailView(DetailView):
   def get_context_data(self, **kwargs):
     context = super(UserDetailView, self).get_context_data(**kwargs)
     user_in_view = User.objects.get(username=self.kwargs['slug'])
-    movies = Movie.objects.filter(user=user_in_view)
+    movies = Movie.objects.filter(user=user_in_view).exclude(visability=1)
     context['movies'] = movies
     reviews = Review.objects.filter(user=user_in_view)
     context['reviews'] = reviews
