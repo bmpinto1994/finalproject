@@ -24,6 +24,7 @@ from django.views.generic import ListView
 class MovieListView(ListView):
   model = Movie
   template_name = "movie/movie_list.html"
+  paginate_by = 5
 
 from django.views.generic import DetailView
 
