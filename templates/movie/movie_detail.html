@@ -2,7 +2,7 @@
 {% block content %}
 <h1>{{ movie.title }}</h1>
 <p>{{ movie.description }}</p>
-<p>Added by {{ movie.user.username }} on {{ movie.created_at }}</p>
+<p>Added by <a href="{% url 'user_detail' slug=movie.user.username %}">{{ movie.user.username }}</a> on {{ movie.created_at }}</p>
 {% if movie.user == user %}
 <p><a href="{% url 'movie_update' pk=movie.id %}">Edit Movie</a></p>
 <p><a href="{% url 'movie_delete' pk=movie.id %}">Delete Movie</a></p>
@@ -17,8 +17,7 @@
   <p><a href="{% url 'review_update' movie_pk=movie.id review_pk=review.id %}">Edit review</a></p>
   <p><a href="{% url 'review_delete' movie_pk=movie.id review_pk=review.id %}">Delete review</a></p>
   {% endif %}
-  <p>Written by {{ review.user.username }} on {{ review.created_at }}</p>
-  <p>{{ review.vote_set.all.count }} Vote{{ review.vote_set.all.count|pluralize }}</p>
+  <p>Written by <a href="{% url 'user_detail' slug=review.user.username %}">{{ review.user.username }}</a> on {{ review.created_at }} {{ review.vote_set.all.count }} Vote{{ review.vote_set.all.count|pluralize }}</p>
   <form method="post" action="{% url 'vote' %}">
     {% csrf_token %}
     <input type="hidden" name="review" value="{{ review.id }}" />

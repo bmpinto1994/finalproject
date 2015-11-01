@@ -3,7 +3,7 @@
 {% for movie in object_list %}
 <div class="panel">
   <h3><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a></h3>
-  <p>Added by {{ movie.user.username }} on {{ movie.created_at }}</p>
+  <p>Added by <a href="{% url 'user_detail' slug=movie.user.username %}">{{ movie.user.username }}</a> on {{ movie.created_at }}</p>
   <p>{{ movie.vote_set.all.count }} Vote{{ movie.vote_set.all.count|pluralize }}</p>
   <form method="post" action="{% url 'vote' %}">
     {% csrf_token %}
