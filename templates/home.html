@@ -1,14 +1,11 @@
 {% extends 'base.html' %}
-{% block content %}
-{% if user.is_authenticated %}
-<div class="jumbotron">
-  <h1>Welcome back!</h1>
+{% block home %}
+<div class="intro-header">
+  <div class="container">
+    <div class="intro-message">
+      <h1>Welcome to MovReview</h1>
+      <h3>The Best Movie Review Site in the World</h3>
+    </div>
+  </div>
 </div>
-{% else %}
-<div class="jumbotron">
-  <h1>Welcome to MovReview</h1>
-  <p>The Best Movie Review Site in the World</p>
-  <p><a class="btn btn-lg btn-primary" href="{% url 'registration_register'  }">Sign up</a></p>
-</div>
-{% endif %}
 {% endblock %}
