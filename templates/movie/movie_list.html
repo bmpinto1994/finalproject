@@ -3,7 +3,7 @@
 {% for movie in object_list %}
 <div class="panel">
   <h3><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a></h3>
-  <p>Asked {% if movie.visibility == 0 %} by <a href="{% url 'user_detail' slug=movie.user.username %}">{{ movie.user.username }}</a> {% endif %} on {{ movie.created_at }}</p>
+  <p>Added {% if movie.visibility == 0 %} by <a href="{% url 'user_detail' slug=movie.user.username %}">{{ movie.user.username }}</a> {% endif %} on {{ movie.created_at }}</p>
   <form method="post" action="{% url 'vote' %}">
     <span class="badge">{{ movie.review_set.all.count }} Review{{ movie.review_set.all.count|pluralize }}</span>
     <span class="badge">{{ movie.vote_set.all.count }} Vote{{ movie.vote_set.all.count|pluralize}}</span>
