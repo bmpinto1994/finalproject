@@ -1,3 +1,12 @@
+RATING_CHOICES = (
+(0, 'None'),
+(1, '*'),
+(2, '**'),
+(3, '***'),
+(4, '****'),
+(5, '*****'),
+)
+
 from django.core.urlresolvers import reverse
 VISABILITY_CHOICES = (
 (0, 'Public'),
@@ -25,6 +34,7 @@ class Review(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
   text = models.TextField()
   visability = models.IntegerField(choices=VISABILITY_CHOICES, default=0)
+  rating = models.IntegerField(choices=RATING_CHOICES, default=0)
 
   def __unicode__(self):
     return self.text

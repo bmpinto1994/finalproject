@@ -1,6 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>{{ movie.title }}</h1>
+{% if rating.rating__avg < 0.5 %}
+  <span class="glyphicon glyphicon-star-empty"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  ({{ rating.rating__avg }})
+{% elif rating.rating__avg < 1.5 %}
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  ({{ rating.rating__avg }})
+{% elif rating.rating__avg < 2.5 %}
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  ({{ rating.rating__avg }})
+{% elif rating.rating__avg < 3.5 %}
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  ({{ rating.rating__avg }})
+{% elif rating.rating__avg < 4.5 %}
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star-empty"></span>
+  ({{ rating.rating__avg }})
+{% else %}
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star"></span>
+  <span class="glyphicon glyphicon-star"></span>
+  ({{ rating.rating__avg }})
+{% endif %}
 <p>{{ movie.description }}</p>
 <p>Added {% if movie.visibility == 0 %} by <a href="{% url 'user_detail' slug=movie.user.username %}">{{ movie.user.username }}</a> {% endif %} on {{ movie.created_at }}</p>
 {% if movie.user == user %}

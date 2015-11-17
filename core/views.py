@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -47,6 +48,8 @@ class MovieDetailView(DetailView):
     context['user_votes'] = user_votes
     user_reviews = Review.objects.filter(movie=movie, user=self.request.user)
     context['user_reviews'] = user_reviews
+    rating = Review.objects.filter(movie=movie).aggregate(Avg('rating'))
+    context['rating'] = rating
     return context
 
 from django.views.generic import UpdateView
