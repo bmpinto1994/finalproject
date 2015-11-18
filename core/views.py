@@ -81,7 +81,7 @@ class MovieDeleteView(DeleteView):
 class ReviewCreateView(CreateView):
   model = Review
   template_name = "review/review_form.html"
-  fields = ['text', 'visability']
+  fields = ['text', 'visability', 'rating']
 
   def get_success_url(self):
     return self.object.movie.get_absolute_url()
@@ -98,7 +98,7 @@ class ReviewUpdateView(UpdateView):
   model = Review
   pk_url_kwarg = 'review_pk'
   template_name = 'review/review_form.html'
-  fields = ['text']
+  fields = ['text', 'visability', 'rating']
 
   def get_success_url(self):
     return self.object.movie.get_absolute_url()
